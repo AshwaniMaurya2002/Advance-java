@@ -1,0 +1,21 @@
+package com.qspider.java_project.methods;
+
+public class StudentDriver {
+	
+	public static void main(String[] args) {
+		Student stud1=new Student("Rohit",101);
+		Student stud2=new Student("Sohit",102);
+		Student stud3=new Student("Mohit",103);
+		
+		System.out.println(stud1.getId());
+		System.out.println(stud2.getId());
+		System.out.println(stud3.getId());
+		
+		System.out.println(stud1.getName());
+		System.out.println(stud2.getName());
+		System.out.println(stud3.getName());
+		
+		
+	}
+
+}
