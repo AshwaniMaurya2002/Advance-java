@@ -8,8 +8,6 @@ public class InsertStudentController {
 	
 	public static void main(String[] args) {
 		
-		
-		
 		try {
 			
 			//step 1 load the driver
