@@ -1,4 +1,4 @@
-package com.qspider.jdbc_servlet_jsp_crud_with_mysql_db.controller;
+package com.jspider.practice.jdbc_installer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
