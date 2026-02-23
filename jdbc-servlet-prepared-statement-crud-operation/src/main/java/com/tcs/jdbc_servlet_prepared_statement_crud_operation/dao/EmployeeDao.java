@@ -9,24 +9,22 @@ import com.tcs.jdbc_servlet_prepared_statement_crud_operation.connection.JdbcEmp
 import com.tcs.jdbc_servlet_prepared_statement_crud_operation.dto.Employee;
 
 public class EmployeeDao {
-	
-	Connection connection=JdbcEmployeeConnection.createJdbcEmployeeConnection();
-	
+
+	Connection connection = JdbcEmployeeConnection.createJdbcEmployeeConnection();
+
 	/*
 	 * saveEmployeeDao(Employee employee) method
-	 * @return Employee 
-	 * */
-	
+	 * 
+	 * @return Employee
+	 */
 	public Employee saveEmployeeDao(Employee employee) {
-		int id=employee.getId();
-		String name=employee.getName();
-		String email=employee.getEmail();
-		String password=employee.getPassword();
-		long phone=employee.getPhone();
-		LocalDate dob=employee.getDob();
-		LocalDate doj=employee.getDoj();
-		
-		
+		int id = employee.getId();
+		String name = employee.getName();
+		String email = employee.getEmail();
+		String password = employee.getPassword();
+		long phone = employee.getPhone();
+		LocalDate dob = employee.getDob();
+		LocalDate doj = employee.getDoj();
 		
 //		System.out.println("id = "+id);
 //		System.out.println("name = "+ name);
@@ -35,11 +33,10 @@ public class EmployeeDao {
 //		System.out.println("phone = "+ phone);
 //		System.out.println("DOB = "+ dob);
 //		System.out.println("DOJ = "+ doj);
-		
+
 		try {
-			String employeeInsertQuery="insert into employee(id,name,email,password,phone,dob,doj) values (?,?,?,?,?,?,?) ";
-			PreparedStatement ps= connection.prepareStatement(employeeInsertQuery);
-			
+			String employeeInsertQuery = "insert into employee(id,name,email,password,phone,dob,doj) values (?,?,?,?,?,?,?) ";
+			PreparedStatement ps = connection.prepareStatement(employeeInsertQuery);
 			ps.setInt(1, id);
 			ps.setString(2, name);
 			ps.setString(3, email);
@@ -47,23 +44,98 @@ public class EmployeeDao {
 			ps.setLong(5, phone);
 			ps.setObject(6, dob);
 			ps.setObject(7, doj);
-			
-		 int a=ps.executeUpdate();
-		 return a!=0?employee:null;
+
+			int a = ps.executeUpdate();
+			return a != 0 ? employee : null;
 		} catch (SQLException e) {
-	
+
 			e.printStackTrace();
 			return null;
 		}
-		
-		
-		
-		
-		
-		
-		
+
 	}
 
+	/*
+	 * deleteEmployeeDao(Employee employee) method
+	 * 
+	 * @return Employee
+	 */
+
+	public Employee deleteEmployeeDao(Employee employee) {
+		int id = employee.getId();
+
+		try {
+			String employeeDeleteQuery = "delete from employee where id=?";
+			PreparedStatement ps = connection.prepareStatement(employeeDeleteQuery);
+			ps.setInt(1, id);
+
+			int a = ps.executeUpdate();
+			return a != 0 ? employee : null;
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/*
+	 * updateEmployeeDao(Employee employee) method
+	 * 
+	 * @return Employee
+	 */
+
+	public Employee updateEmployeeDao(Employee employee) {
+		int id = employee.getId();
+		String name = employee.getName();
+		String email = employee.getEmail();
+		String password = employee.getPassword();
+		long phone = employee.getPhone();
+		LocalDate dob = employee.getDob();
+		LocalDate doj = employee.getDoj();
+
+		try {
+			String employeeUpdateQuery = "update employee set name=?,email=?,password=?,phone=?,dob=?,doj=? where id=?";
+			PreparedStatement ps = connection.prepareStatement(employeeUpdateQuery);
+
+			ps.setString(1, name);
+			ps.setString(2, email);
+			ps.setString(3, password);
+			ps.setLong(4, phone);
+			ps.setObject(5, dob);
+			ps.setObject(6, doj);
+			ps.setInt(7, id);
+
+			int a = ps.executeUpdate();
+			return a != 0 ? employee : null;
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	/*
+	 * DisplayEmployeeDao(Employee employee) method
+	 * @return Employee 
+	 * */
+	
+	public Employee displayEmployeeDao(Employee employee) {
+		int id = employee.getId();
+
+		try {
+			String employeeDisplayQuery = "select * from employee where id=?";
+			PreparedStatement ps = connection.prepareStatement(employeeDisplayQuery);
+			ps.setInt(1, id);
+
+			int a = ps.executeUpdate();
+			return a != 0 ? employee : null;
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 
 }

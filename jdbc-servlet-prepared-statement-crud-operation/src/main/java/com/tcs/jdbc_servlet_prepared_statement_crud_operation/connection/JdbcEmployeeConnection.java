@@ -14,9 +14,6 @@ public class JdbcEmployeeConnection {
 	
 	public static Connection createJdbcEmployeeConnection() {
 		
-		
-		
-		
 		try {
 			
 			//step1 register and load driver
