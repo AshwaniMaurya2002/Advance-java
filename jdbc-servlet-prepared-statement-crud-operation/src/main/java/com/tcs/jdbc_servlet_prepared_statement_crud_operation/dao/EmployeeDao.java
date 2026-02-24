@@ -55,87 +55,31 @@ public class EmployeeDao {
 
 	}
 
-	/*
-	 * deleteEmployeeDao(Employee employee) method
-	 * 
-	 * @return Employee
-	 */
-
-	public Employee deleteEmployeeDao(Employee employee) {
-		int id = employee.getId();
-
+	public boolean deleteEmployeeByIdDao(int id) {
 		try {
-			String employeeDeleteQuery = "delete from employee where id=?";
-			PreparedStatement ps = connection.prepareStatement(employeeDeleteQuery);
+			String deleteQuery = "delete from employee where id=?";
+			PreparedStatement ps = connection.prepareStatement(deleteQuery);
 			ps.setInt(1, id);
-
 			int a = ps.executeUpdate();
-			return a != 0 ? employee : null;
+			return a != 0 ? true : false;
 		} catch (SQLException e) {
-
 			e.printStackTrace();
-			return null;
+			return false;
 		}
 	}
-
-	/*
-	 * updateEmployeeDao(Employee employee) method
-	 * 
-	 * @return Employee
-	 */
-
-	public Employee updateEmployeeDao(Employee employee) {
-		int id = employee.getId();
-		String name = employee.getName();
-		String email = employee.getEmail();
-		String password = employee.getPassword();
-		long phone = employee.getPhone();
-		LocalDate dob = employee.getDob();
-		LocalDate doj = employee.getDoj();
-
+	
+	public boolean updateEmployeeNameByIdDao(int id,String name) {
 		try {
-			String employeeUpdateQuery = "update employee set name=?,email=?,password=?,phone=?,dob=?,doj=? where id=?";
-			PreparedStatement ps = connection.prepareStatement(employeeUpdateQuery);
-
+			String updateQuery = "update employee set name=? where id=?";
+			PreparedStatement ps = connection.prepareStatement(updateQuery);
 			ps.setString(1, name);
-			ps.setString(2, email);
-			ps.setString(3, password);
-			ps.setLong(4, phone);
-			ps.setObject(5, dob);
-			ps.setObject(6, doj);
-			ps.setInt(7, id);
-
+			ps.setInt(2, id);
 			int a = ps.executeUpdate();
-			return a != 0 ? employee : null;
+			return a != 0 ? true : false;
 		} catch (SQLException e) {
-
 			e.printStackTrace();
-			return null;
+			return false;
 		}
 	}
-	
-	
-	/*
-	 * DisplayEmployeeDao(Employee employee) method
-	 * @return Employee 
-	 * */
-	
-	public Employee displayEmployeeDao(Employee employee) {
-		int id = employee.getId();
-
-		try {
-			String employeeDisplayQuery = "select * from employee where id=?";
-			PreparedStatement ps = connection.prepareStatement(employeeDisplayQuery);
-			ps.setInt(1, id);
-
-			int a = ps.executeUpdate();
-			return a != 0 ? employee : null;
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
 
 }

@@ -12,4 +12,5 @@
     <fullyQualifiedTypeName name="com.tcs.jdbc_servlet_prepared_statement_crud_operation.dto.Employee"/>
     <fullyQualifiedTypeName name="java.time.LocalDate"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
 </qualifiedTypeNameHistroy>
