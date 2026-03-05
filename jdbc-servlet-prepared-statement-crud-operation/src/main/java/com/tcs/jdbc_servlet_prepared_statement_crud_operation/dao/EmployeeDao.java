@@ -2,8 +2,11 @@ package com.tcs.jdbc_servlet_prepared_statement_crud_operation.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.tcs.jdbc_servlet_prepared_statement_crud_operation.connection.JdbcEmployeeConnection;
 import com.tcs.jdbc_servlet_prepared_statement_crud_operation.dto.Employee;
@@ -54,7 +57,11 @@ public class EmployeeDao {
 		}
 
 	}
-
+	
+/*	 * deleteEmployeeByIdDao(int id) method
+	 * @param id
+	 * @return boolean
+	 */
 	public boolean deleteEmployeeByIdDao(int id) {
 		try {
 			String deleteQuery = "delete from employee where id=?";
@@ -68,6 +75,11 @@ public class EmployeeDao {
 		}
 	}
 	
+	/*	 * updateEmployeeNameByIdDao(int id,String name) method
+	 * @param id
+	 * @param name
+	 * @return boolean
+	 */
 	public boolean updateEmployeeNameByIdDao(int id,String name) {
 		try {
 			String updateQuery = "update employee set name=? where id=?";
@@ -80,6 +92,89 @@ public class EmployeeDao {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	/*	 * getEmployeeByIdDao(int id) method
+	 * @param id
+	 * @return Employee
+	 */
+	
+	public Employee getEmployeeByIdDao(int id) {
+		try {
+			String selectQuery = "select * from employee where id=?";
+			PreparedStatement ps = connection.prepareStatement(selectQuery);
+			ps.setInt(1, id);
+		ResultSet rs=ps.executeQuery();
+		if(rs.next()) {
+			int empId=rs.getInt("id");
+			String empName=rs.getString("name");
+			String empEmail=rs.getString("email");
+			String empPassword=rs.getString("password");
+			long empPhone=rs.getLong("phone");
+		    LocalDate dob=rs.getDate("dob").toLocalDate();
+		    LocalDate doj=rs.getDate("doj").toLocalDate();
+			
+			Employee employee=new Employee();
+			employee.setId(empId);
+			employee.setName(empName);
+			employee.setEmail(empEmail);
+			employee.setPassword(empPassword);
+			employee.setPhone(empPhone);
+			employee.setDob(dob);
+			employee.setDoj(doj);
+			return employee;
+		}
+		else
+			return null;
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	
+	public List<Employee> getAllEmployeeDao(){
+		String getAllEmployeeQuery="select * from employee";
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(getAllEmployeeQuery);
+			ResultSet rs= ps.executeQuery();
+			List<Employee> emp=new ArrayList<Employee>();
+			
+			while(rs.next()) {
+				int empId=rs.getInt("id");
+				String empName=rs.getString("name");
+				String empEmail=rs.getString("email");
+				String empPassword=rs.getString("password");
+				long empPhone=rs.getLong("phone");
+			    LocalDate dob=rs.getDate("dob").toLocalDate();
+			    LocalDate doj=rs.getDate("doj").toLocalDate();
+				
+				Employee employee=new Employee();
+				
+				employee.setId(empId);
+				employee.setName(empName);
+				employee.setEmail(empEmail);
+				employee.setPassword(empPassword);
+				employee.setPhone(empPhone);
+				employee.setDob(dob);
+				employee.setDoj(doj);
+				
+				emp.add(employee);
+				
+				
+			}
+			return emp;
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return null;
+		}
+		
+		
 	}
 
 }
