@@ -79,7 +79,6 @@ background:#27ae60;
 
 <label>DOJ</label>
 <input type="date" name="doj">
-
 <button type="submit">Edit Employee</button>
 <a href="index.jsp">⬅ Back to Dashboard</a>
 
