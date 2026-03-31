@@ -1,5 +1,7 @@
 package com.company.hibernate_unidirectional_mapping_crud_operation.dao;
 
+import java.util.ArrayList;
+
 import com.company.hibernate_unidirectional_mapping_crud_operation.entity.Pan;
 import com.company.hibernate_unidirectional_mapping_crud_operation.entity.Person;
 
@@ -51,5 +53,41 @@ public class PersonPanDao {
 		return false;
 
 	}
+	
+	
+public boolean deletePersonById(int id) {
+		
+		Person person=em.find(Person.class, id);
+		
+		if(person!=null) {
+			et.begin();
+			
+			em.remove(person);
+			
+			et.commit();
+			
+			return true;
+		}
+		
+		return false;
+	}
+
+
+  public ArrayList<Person> getAllPersonAndPanDao(){
+	  
+	  String getAllPersonAndPanQuery="Select p from Person p";
+	  
+	  Query query=em.createQuery(getAllPersonAndPanQuery,Person.class);
+	  
+	  return (ArrayList<Person>) query.getResultList();
+  }
+
 
 }
+
+
+
+
+
+
+
